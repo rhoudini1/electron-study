@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Editor</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/photon.css" />
+
+    <!-- Electron Javascript -->
+    <script src="main.js" charset="utf-8"></script>
+  </head>
+
+  <body>
+    <!-- Wrap your entire app inside .window -->
+    <div class="window">
+      <!-- Toolbar with zoom and save buttons -->
+      <header class="toolbar toolbar-header">
+        <div class="toolbar-actions">
+          <div class="btn-group">
+            <button class="btn btn-default">
+              <span class="icon icon-plus"></span>
+            </button>
+            <button class="btn btn-default">
+              <span class="icon icon-minus"></span>
+            </button>
+          </div>
+
+          <button class="btn btn-default pull-right">
+            <span class="icon icon-download icon-text"></span>
+            <strong>Save</strong>
+          </button>
+        </div>
+      </header>
+
+      <!-- Text editing area -->
+      <div class="window-content">
+        <div class="padded-more">
+          <h1>Welcome to Photon</h1>
+          <p>
+            Thanks for downloading Photon. This is an example HTML page that's linked up to compiled Photon CSS, has the proper meta tags and the HTML
+            structure.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
