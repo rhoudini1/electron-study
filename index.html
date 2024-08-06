@@ -18,10 +18,10 @@
       <header class="toolbar toolbar-header">
         <div class="toolbar-actions">
           <div class="btn-group">
-            <button class="btn btn-default">
+            <button class="btn btn-default" onclick="increaseFont()">
               <span class="icon icon-plus"></span>
             </button>
-            <button class="btn btn-default">
+            <button class="btn btn-default" onclick="decreaseFont()">
               <span class="icon icon-minus"></span>
             </button>
           </div>
@@ -35,8 +35,20 @@
 
       <!-- Text editing area -->
       <div class="window-content">
-        <textarea name="" id="" class="input-text-area"></textarea>
+        <textarea class="input-text-area"></textarea>
       </div>
     </div>
   </body>
+  <script>
+    const textArea = document.querySelector("textarea");
+    let defaultFontSize = 20;
+
+    function increaseFont() {
+      textArea.style.fontSize = `${(defaultFontSize += 2)}px`;
+    }
+
+    function decreaseFont() {
+      textArea.style.fontSize = `${(defaultFontSize -= 2)}px`;
+    }
+  </script>
 </html>
