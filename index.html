@@ -26,7 +26,7 @@
             </button>
           </div>
 
-          <button class="btn btn-default pull-right">
+          <button class="btn btn-default pull-right" onclick="saveTextContent()">
             <span class="icon icon-download icon-text"></span>
             <strong>Save</strong>
           </button>
@@ -35,7 +35,7 @@
 
       <!-- Text editing area -->
       <div class="window-content">
-        <textarea class="input-text-area"></textarea>
+        <textarea class="input-text-area" spellcheck="false"></textarea>
       </div>
     </div>
   </body>
@@ -49,6 +49,11 @@
 
     function decreaseFont() {
       textArea.style.fontSize = `${(defaultFontSize -= 2)}px`;
+    }
+
+    function saveTextContent() {
+      const text = textArea.value;
+      window.electronAPI.saveText(text);
     }
   </script>
 </html>
