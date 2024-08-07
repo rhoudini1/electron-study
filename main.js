@@ -1,10 +1,12 @@
 const electron = require("electron");
 const fs = require("fs");
 const path = require("node:path");
-const { app, BrowserWindow, ipcMain } = electron;
+const { app, BrowserWindow, ipcMain, dialog } = electron;
+
+let mainWindow;
 
 app.on("ready", () => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -17,8 +19,21 @@ app.on("window-all-closed", function () {
 });
 
 ipcMain.on("save", (event, text) => {
-  // todo: popup to show save dialog window
-  fs.writeFile("text.txt", text, (err) => {
-    if (err) console.log("Error saving file.", err);
-  });
+  dialog
+    .showSaveDialog(mainWindow, {
+      defaultPath: "filename.txt",
+      filters: [
+        { name: "Text Files", extensions: ["txt"] },
+        { name: "All Files", extensions: ["*"] },
+      ],
+    })
+    .then((result) => {
+      if (result.canceled) return;
+      fs.writeFile(result.filePath, text, (err) => {
+        if (err) console.log("Error saving file.", err);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
