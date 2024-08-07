@@ -4,6 +4,7 @@ const path = require("node:path");
 const { app, BrowserWindow, ipcMain, dialog } = electron;
 
 let mainWindow;
+let filePath = null;
 
 app.on("ready", () => {
   mainWindow = new BrowserWindow({
@@ -19,21 +20,30 @@ app.on("window-all-closed", function () {
 });
 
 ipcMain.on("save", (event, text) => {
-  dialog
-    .showSaveDialog(mainWindow, {
-      defaultPath: "filename.txt",
-      filters: [
-        { name: "Text Files", extensions: ["txt"] },
-        { name: "All Files", extensions: ["*"] },
-      ],
-    })
-    .then((result) => {
-      if (result.canceled) return;
-      fs.writeFile(result.filePath, text, (err) => {
-        if (err) console.log("Error saving file.", err);
+  if (!filePath) {
+    dialog
+      .showSaveDialog(mainWindow, {
+        defaultPath: "filename.txt",
+        filters: [
+          { name: "Text Files", extensions: ["txt"] },
+          { name: "All Files", extensions: ["*"] },
+        ],
+      })
+      .then((result) => {
+        if (result.canceled) return;
+        filePath = result.filePath;
+        writeToFile(text);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  } else {
+    writeToFile(text);
+  }
 });
+
+function writeToFile(data) {
+  fs.writeFile(filePath, data, (err) => {
+    if (err) console.log("Error saving file.", err);
+  });
+}
