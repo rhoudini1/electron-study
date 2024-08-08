@@ -26,7 +26,7 @@
             </button>
           </div>
 
-          <button class="btn btn-default pull-right" onclick="saveTextContent()">
+          <button class="btn btn-default pull-right" id="save-btn">
             <span class="icon icon-download icon-text"></span>
             <strong>Save</strong>
           </button>
@@ -41,19 +41,26 @@
   </body>
   <script>
     const textArea = document.querySelector("textarea");
+    const saveBtn = document.getElementById("save-btn");
     let defaultFontSize = 20;
 
     function increaseFont() {
       textArea.style.fontSize = `${(defaultFontSize += 2)}px`;
     }
-
     function decreaseFont() {
       textArea.style.fontSize = `${(defaultFontSize -= 2)}px`;
     }
 
-    function saveTextContent() {
+    saveBtn.addEventListener("click", async () => {
       const text = textArea.value;
-      window.electronAPI.saveText(text);
+      const fileLocation = await window.electronAPI.saveText(text);
+      document.title = `${fileLocation} - Text Editor`;
+    });
+
+    async function saveTextContent() {
+      const text = textArea.value;
+      const fileLocation = await window.electronAPI.saveText(text);
+      document.title = `${fileLocation} - Text Editor`;
     }
   </script>
 </html>

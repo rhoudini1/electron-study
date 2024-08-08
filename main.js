@@ -19,31 +19,31 @@ app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
 
-ipcMain.on("save", (event, text) => {
+ipcMain.handle("save", async (event, text) => {
   if (!filePath) {
-    dialog
-      .showSaveDialog(mainWindow, {
-        defaultPath: "filename.txt",
-        filters: [
-          { name: "Text Files", extensions: ["txt"] },
-          { name: "All Files", extensions: ["*"] },
-        ],
-      })
-      .then((result) => {
-        if (result.canceled) return;
-        filePath = result.filePath;
-        writeToFile(text);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const result = await dialog.showSaveDialog(mainWindow, {
+      defaultPath: "filename.txt",
+      filters: [
+        { name: "Text Files", extensions: ["txt"] },
+        { name: "All Files", extensions: ["*"] },
+      ],
+    });
+    if (result.canceled) return null;
+    filePath = result.filePath;
+    const isFileSaved = writeToFile(text);
+    return isFileSaved ? filePath : null;
   } else {
-    writeToFile(text);
+    const isFileSaved = writeToFile(text);
+    return isFileSaved ? filePath : null;
   }
 });
 
 function writeToFile(data) {
   fs.writeFile(filePath, data, (err) => {
-    if (err) console.log("Error saving file.", err);
+    if (err) {
+      console.log("Error saving file.", err);
+      return false;
+    }
   });
+  return true;
 }
