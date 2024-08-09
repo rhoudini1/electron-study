@@ -52,10 +52,10 @@
     }
 
     saveBtn.addEventListener("click", async () => {
-      const text = textArea.value;
-      const fileLocation = await window.electronAPI.saveText(text);
-      document.title = `${fileLocation} - Text Editor`;
+      saveTextContent();
     });
+
+    window.electronAPI.onSaveMenuBtnClicked(saveTextContent);
 
     async function saveTextContent() {
       const text = textArea.value;
