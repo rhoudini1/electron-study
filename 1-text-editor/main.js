@@ -24,7 +24,7 @@ app.on("ready", () => {
         },
         {
           label: "Save as",
-          click: () => console.log("save as"), // todo
+          click: () => mainWindow.webContents.send("saveas-btn-click"),
         },
       ],
     },
@@ -44,23 +44,40 @@ app.on("window-all-closed", function () {
 
 ipcMain.handle("save", async (event, text) => {
   if (!filePath) {
-    const result = await dialog.showSaveDialog(mainWindow, {
-      defaultPath: "filename.txt",
-      filters: [
-        { name: "Text Files", extensions: ["txt"] },
-        { name: "All Files", extensions: ["*"] },
-      ],
-    });
-    if (result.canceled) return null;
-    filePath = result.filePath;
-    const isFileSaved = writeToFile(text);
-    return isFileSaved ? filePath : null;
-  } else {
-    const isFileSaved = writeToFile(text);
-    return isFileSaved ? filePath : null;
+    filePath = await getFilePathFromSaveDialog();
   }
+  if (!filePath) return null;
+  const isFileSaved = writeToFile(text);
+  return isFileSaved ? filePath : null;
 });
 
+ipcMain.handle("save-as", async (event, text) => {
+  const tempFilePath = await getFilePathFromSaveDialog();
+  if (tempFilePath) filePath = tempFilePath;
+  const isFileSaved = writeToFile(text);
+  return isFileSaved ? filePath : null;
+});
+
+/**
+ * Displays a save dialog and returns the file path that was chosen.
+ * @returns { string | null } The file path that user selected; null if canceled.
+ */
+async function getFilePathFromSaveDialog() {
+  const result = await dialog.showSaveDialog(mainWindow, {
+    defaultPath: "filename.txt",
+    filters: [
+      { name: "Text Files", extensions: ["txt"] },
+      { name: "All Files", extensions: ["*"] },
+    ],
+  });
+  return result.canceled ? null : result.filePath;
+}
+
+/**
+ * Helper function to only write text to a file.
+ * @param {string} data Text to be saved in a text file.
+ * @returns { boolean } Confirmation if file was succesfully saved.
+ */
 function writeToFile(data) {
   fs.writeFile(filePath, data, (err) => {
     if (err) {

@@ -56,10 +56,16 @@
     });
 
     window.electronAPI.onSaveMenuBtnClicked(saveTextContent);
+    window.electronAPI.onSaveAsMenuBtnClicked(saveTextContentAs);
 
     async function saveTextContent() {
       const text = textArea.value;
       const fileLocation = await window.electronAPI.saveText(text);
+      document.title = `${fileLocation} - Text Editor`;
+    }
+    async function saveTextContentAs() {
+      const text = textArea.value;
+      const fileLocation = await window.electronAPI.saveTextAs(text);
       document.title = `${fileLocation} - Text Editor`;
     }
   </script>
