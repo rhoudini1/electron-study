@@ -1,18 +1,10 @@
 const parseFiles = window.mm.parseFiles;
 
 const addMusicButton = document.getElementById("add-btn");
-const audioPlayer = $("audio").get(0);
-
 addMusicButton.addEventListener("click", chooseMusic);
 
 function chooseMusic() {
   $("input").trigger("click");
-}
-
-function playSong(path) {
-  audioPlayer.src = path;
-  audioPlayer.load();
-  audioPlayer.play();
 }
 
 async function musicSelected() {
@@ -24,8 +16,8 @@ async function musicSelected() {
   const jsonMetadata = await parseFiles(JSON.stringify(filePaths));
   const metadata = JSON.parse(jsonMetadata);
   const songRows = metadata.map(
-    (data, index) => `
-    <tr ondbclick="playSong(${data.path})">
+    (data) => `
+    <tr>
       <td>${data.title}</td>
       <td>${data.artist}</td>
       <td>${data.duration}</td>
