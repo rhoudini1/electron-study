@@ -1,0 +1,19 @@
+{
+  "name": "electron-music-player",
+  "version": "1.0.0",
+  "description": "Basic audio player built in Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "music",
+    "player"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^31.3.1"
+  }
+}
