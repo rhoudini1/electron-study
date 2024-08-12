@@ -34,6 +34,7 @@ ipcMain.handle("parseFiles", async (event, filePathsJson) => {
       title: data.common.title ?? getUnknownSongTitle(path),
       artist: data.common.artist ?? "Unknown",
       duration: secondsToTime(data.format.duration),
+      path,
     });
   }
   return JSON.stringify(metadata);
