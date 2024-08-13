@@ -27,6 +27,7 @@ function playSong(index) {
 }
 
 function playOrPauseSong() {
+  if (allSongs.length === 0) return;
   if (isPlayingSong) {
     audioPlayer.pause();
     updatePlayButtonIcon();
@@ -40,8 +41,18 @@ function playOrPauseSong() {
 
 function playNext() {
   const totalSongs = allSongs.length;
+  if (totalSongs === 0) return;
   const isLastSong = totalSongs - 1 === currentSongIndex;
   const indexToPlay = isLastSong ? 0 : currentSongIndex + 1;
+  playSong(indexToPlay);
+  currentSongIndex = indexToPlay;
+}
+
+function playPrevious() {
+  const totalSongs = allSongs.length;
+  if (totalSongs === 0) return;
+  const isFirstSong = currentSongIndex === 0;
+  const indexToPlay = isFirstSong ? totalSongs - 1 : currentSongIndex - 1;
   playSong(indexToPlay);
   currentSongIndex = indexToPlay;
 }
