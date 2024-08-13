@@ -1,6 +1,7 @@
 const parseFiles = window.mm.parseFiles;
-let isPlayingSong = false;
 const allSongs = [];
+let isPlayingSong = false;
+let currentSongIndex;
 
 const addMusicButton = document.getElementById("add-btn");
 const playAndPauseButton = document.getElementById("play-button");
@@ -16,7 +17,7 @@ function chooseMusic() {
 }
 
 function playSong(index) {
-  console.log(allSongs);
+  currentSongIndex = index;
   audioPlayer.src = allSongs[index].path;
   audioPlayer.load();
   audioPlayer.play();
@@ -35,6 +36,14 @@ function playOrPauseSong() {
     updatePlayButtonIcon();
     isPlayingSong = true;
   }
+}
+
+function playNext() {
+  const totalSongs = allSongs.length;
+  const isLastSong = totalSongs - 1 === currentSongIndex;
+  const indexToPlay = isLastSong ? 0 : currentSongIndex + 1;
+  playSong(indexToPlay);
+  currentSongIndex = indexToPlay;
 }
 
 function updatePlayButtonIcon() {
