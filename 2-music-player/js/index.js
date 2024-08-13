@@ -1,21 +1,45 @@
 const parseFiles = window.mm.parseFiles;
+let isPlayingSong = false;
 
 const addMusicButton = document.getElementById("add-btn");
+const playAndPauseButton = document.getElementById("play-button");
 const currentSongHeading = document.getElementById("current-song");
 const audioPlayer = $("audio").get(0);
+const playIcon = $("#play-button span");
 
 addMusicButton.addEventListener("click", chooseMusic);
+playAndPauseButton.addEventListener("click", playOrPauseSong);
 
 function chooseMusic() {
   $("input").trigger("click");
 }
 
 function playSong(path, title) {
-  console.log(path);
   audioPlayer.src = path;
   audioPlayer.load();
   audioPlayer.play();
+  updatePlayButtonIcon();
+  isPlayingSong = true;
   currentSongHeading.textContent = "Playing now: " + title;
+}
+
+function playOrPauseSong() {
+  if (isPlayingSong) {
+    audioPlayer.pause();
+    updatePlayButtonIcon();
+    isPlayingSong = false;
+  } else {
+    audioPlayer.play();
+    updatePlayButtonIcon();
+    isPlayingSong = true;
+  }
+}
+
+function updatePlayButtonIcon() {
+  const iconToRemove = isPlayingSong ? "icon-pause" : "icon-play";
+  const iconToAdd = isPlayingSong ? "icon-play" : "icon-pause";
+  playIcon.removeClass(iconToRemove);
+  playIcon.addClass(iconToAdd);
 }
 
 async function musicSelected() {
