@@ -1,5 +1,6 @@
 const parseFiles = window.mm.parseFiles;
 let isPlayingSong = false;
+const allSongs = [];
 
 const addMusicButton = document.getElementById("add-btn");
 const playAndPauseButton = document.getElementById("play-button");
@@ -14,13 +15,14 @@ function chooseMusic() {
   $("input").trigger("click");
 }
 
-function playSong(path, title) {
-  audioPlayer.src = path;
+function playSong(index) {
+  console.log(allSongs);
+  audioPlayer.src = allSongs[index].path;
   audioPlayer.load();
   audioPlayer.play();
   updatePlayButtonIcon();
   isPlayingSong = true;
-  currentSongHeading.textContent = "Playing now: " + title;
+  currentSongHeading.textContent = "Playing now: " + allSongs[index].title;
 }
 
 function playOrPauseSong() {
@@ -44,15 +46,21 @@ function updatePlayButtonIcon() {
 
 async function musicSelected() {
   const files = $("input").get(0).files;
+  const currentLastIndexOfSongs = allSongs.length - 1;
   const filePaths = [];
   for (let i = 0; i < files.length; i++) {
     filePaths.push(files[i].path);
   }
   const jsonMetadata = await parseFiles(JSON.stringify(filePaths));
   const metadata = JSON.parse(jsonMetadata);
+  const songsToAdd = metadata.map((data) => ({
+    path: data.path,
+    title: data.title,
+  }));
+  allSongs.push.apply(allSongs, songsToAdd);
   const songRows = metadata.map(
-    (data) => `
-    <tr ondblclick="playSong('${data.path}', '${data.title}')">
+    (data, index) => `
+    <tr ondblclick="playSong(${currentLastIndexOfSongs + index + 1})">
       <td>${data.title}</td>
       <td>${data.artist}</td>
       <td>${data.duration}</td>
