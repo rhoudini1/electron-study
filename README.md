@@ -22,8 +22,19 @@ I am also aware that parts of the code can be refactored to look cleaner or even
 
 ## My touch
 
-I have also added some features to the apps that are not present in the course. For instance, for the first project (text editor), I have added the location where file was saved to be displayed on the window title after being returned from a two-way process communication -- first from process to main, to send the text to be saved, and then from main to process, receiving the location where it was saved. Quite basic, but makes it more notepad-like.
+I have also added some features to the apps that are not present in the course.
+
+For instance, for the first project (text editor), I have added the location where file was saved to be displayed on the window title after being returned from a two-way process communication -- first from process to main, to send the text to be saved, and then from main to process, receiving the location where it was saved. Quite basic, but makes it more notepad-like.
+
+In the second app, the music player, I have improved some aspects of the application. I have distributed the items in the sidebar equally using CSS flexbox. Because of that, some Photon classes were breaking, especially the `toolbar-actions:before` and `toolbar-actions:after`, so I had to override them as well. I also had to solve a lot of bugs (many of them created by me, because I am modifying doing lots of things my way).
 
 ## Status of the project
 
-Project is currently ongoing.
+Project is currently ongoing. So far I have studied and completed:
+
+ - [x] Text Editor
+ - [x] Music Player
+ - [ ] System tray Music Player (using last project)
+ - [ ] Top Headlines News Reader
+ - [ ] Radio Streaming App
+ - [ ] Packaging and distribution
