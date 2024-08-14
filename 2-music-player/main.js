@@ -1,6 +1,6 @@
 const path = require("node:path");
 const { app, BrowserWindow, ipcMain } = require("electron");
-const { getUnknownSongTitle, secondsToTime } = require("./helpers");
+const { getUnknownSongTitle } = require("./helpers");
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -33,7 +33,7 @@ ipcMain.handle("parseFiles", async (event, filePathsJson) => {
     metadata.push({
       title: data.common.title ?? getUnknownSongTitle(path),
       artist: data.common.artist ?? "Unknown",
-      duration: secondsToTime(data.format.duration),
+      duration: data.format.duration,
       path: path.replace(/\\/g, "/"),
     });
   }
