@@ -3,11 +3,23 @@
   <head>
     <title>Musasic</title>
     <link rel="stylesheet" href="css/photon.css" />
+    <style>
+      .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .toolbar-actions:before,
+      .toolbar-actions:after {
+        display: table;
+        content: none;
+      }
+    </style>
   </head>
   <body>
     <div class="window">
       <header class="toolbar toolbar-header">
-        <div class="toolbar-actions">
+        <div class="toolbar-actions flex-container">
           <div class="btn-group">
             <button class="btn btn-default" onclick="playPrevious()">
               <span class="icon icon-to-start"></span>
@@ -20,9 +32,9 @@
             </button>
           </div>
 
-          <span style="margin-left: 40px"> <span id="time-left">00:00</span> | <span id="total-time">00:00</span> </span>
+          <span> <span id="time-left">00:00</span> | <span id="total-time">00:00</span> </span>
 
-          <button class="btn btn-default btn-large pull-right" id="add-btn"><span class="icon icon-plus icon-text"></span>Add</button>
+          <button class="btn btn-default btn-large" id="add-btn"><span class="icon icon-plus icon-text"></span>Add</button>
         </div>
       </header>
 
@@ -47,7 +59,7 @@
         </div>
       </div>
 
-      <footer class="toolbar toolbar-footer">
+      <footer class="toolbar toolbar-footer" style="padding-bottom: 7px">
         <div class="toolbar-actions">
           <button class="btn btn-default pull-right">Clear Playlist</button>
         </div>
