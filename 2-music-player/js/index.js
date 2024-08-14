@@ -33,10 +33,12 @@ function playOrPauseSong() {
   if (allSongs.length === 0) return;
   if (isPlayingSong) {
     audioPlayer.pause();
+    clearInterval(timer);
     updatePlayButtonIcon();
     isPlayingSong = false;
   } else {
     audioPlayer.play();
+    timer = setInterval(updateTimer, 1000);
     updatePlayButtonIcon();
     isPlayingSong = true;
   }
@@ -70,6 +72,7 @@ function updatePlayButtonIcon() {
 function updateTimer() {
   $("#time-left").text(secondsToTime(audioPlayer.currentTime));
   $("#total-time").text(secondsToTime(audioPlayer.duration));
+  if (audioPlayer.currentTime >= audioPlayer.duration) playNext();
 }
 
 async function musicSelected() {
