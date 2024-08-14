@@ -22,8 +22,9 @@ function playSong(index) {
   audioPlayer.src = allSongs[index].path;
   audioPlayer.load();
   audioPlayer.play();
-  updatePlayButtonIcon();
   timer = setInterval(updateTimer, 1000);
+  playIcon.removeClass("icon-play");
+  playIcon.addClass("icon-pause");
   isPlayingSong = true;
   currentSongHeading.textContent = "Playing now: " + allSongs[index].title;
 }
