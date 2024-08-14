@@ -1,7 +1,7 @@
 const parseFiles = window.mm.parseFiles;
 const allSongs = [];
 let isPlayingSong = false;
-let currentSongIndex;
+let currentSongIndex = null;
 let timer = null;
 
 const addMusicButton = document.getElementById("add-btn");
@@ -37,6 +37,10 @@ function playOrPauseSong() {
     updatePlayButtonIcon();
     isPlayingSong = false;
   } else {
+    if (currentSongIndex === null) {
+      playSong(0);
+      return;
+    }
     audioPlayer.play();
     timer = setInterval(updateTimer, 1000);
     updatePlayButtonIcon();
@@ -73,6 +77,24 @@ function updateTimer() {
   $("#time-left").text(secondsToTime(audioPlayer.currentTime));
   $("#total-time").text(secondsToTime(audioPlayer.duration));
   if (audioPlayer.currentTime >= audioPlayer.duration) playNext();
+}
+
+function clearPlaylist() {
+  if (allSongs.length === 0) return;
+  clearInterval(timer);
+  timer = null;
+  audioPlayer.pause();
+  audioPlayer.src = "";
+  currentSongIndex = null;
+  playIcon.removeClass("icon-pause");
+  playIcon.addClass("icon-play");
+  isPlayingSong = false;
+  $("#time-left").text("00:00");
+  $("#total-time").text("00:00");
+  $("#table-body").html("");
+  currentSongHeading.textContent = "";
+  allSongs.splice(0, allSongs.length);
+  $("input").val("");
 }
 
 async function musicSelected() {
