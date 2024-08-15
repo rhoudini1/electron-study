@@ -6,25 +6,45 @@ let tray = null;
 let win = null;
 
 const createWindow = () => {
+  if (process.platform === "darwin") {
+    app.dock.hide();
+  }
   win = new BrowserWindow({
     width: 400,
     height: 500,
-    minWidth: 320,
-    minHeight: 400,
-    maxWidth: 480,
-    maxHeight: 600,
+    frame: false,
+    resizable: false,
+    skipTaskbar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
   });
   win.loadFile("index.html");
+  win.hide();
 };
 
 app.whenReady().then(() => {
   createWindow();
   tray = new Tray("images/iconTemplate.png");
-  tray.on("click", () => {
-    win.isVisible() ? win.hide() : win.show();
+
+  tray.on("click", (event, bounds) => {
+    const { x, y } = bounds;
+    const { width, height } = win.getBounds();
+    if (win.isVisible()) {
+      win.hide();
+    } else {
+      win.setBounds({
+        x: x - width / 2,
+        y: process.platform === "darwin" ? y : y - height,
+        width,
+        height,
+      });
+      win.show();
+    }
+  });
+
+  win.on("blur", () => {
+    win.hide();
   });
 });
 
