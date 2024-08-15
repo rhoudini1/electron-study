@@ -14,6 +14,12 @@
         display: table;
         content: none;
       }
+      .volume-bar {
+        float: inline-start;
+        margin-top: 5px;
+        margin-left: 5px;
+        accent-color: gray;
+      }
     </style>
   </head>
   <body>
@@ -60,6 +66,10 @@
       </div>
 
       <footer class="toolbar toolbar-footer" style="padding-bottom: 7px">
+        <div class="volume-bar form-actions">
+          <span id="icon-sound" class="icon icon-sound" style="font-size: medium"></span>
+          <input type="range" min="0" max="1" step="0.01" oninput="changeVolume(this)" />
+        </div>
         <div class="toolbar-actions">
           <button class="btn btn-default pull-right" onclick="clearPlaylist()">Clear Playlist</button>
         </div>

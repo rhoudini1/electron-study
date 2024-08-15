@@ -73,6 +73,18 @@ function updatePlayButtonIcon() {
   playIcon.addClass(iconToAdd);
 }
 
+function changeVolume(input) {
+  audioPlayer.volume = input.value;
+  const soundIcon = document.getElementById("icon-sound");
+  if (input.value === "0") {
+    soundIcon.classList.remove("icon-sound");
+    soundIcon.classList.add("icon-mute");
+  } else {
+    soundIcon.classList.remove("icon-mute");
+    soundIcon.classList.add("icon-sound");
+  }
+}
+
 function updateTimer() {
   $("#time-left").text(secondsToTime(audioPlayer.currentTime));
   $("#total-time").text(secondsToTime(audioPlayer.duration));
