@@ -1,5 +1,5 @@
 const path = require("node:path");
-const { app, BrowserWindow, ipcMain, Tray } = require("electron");
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require("electron");
 const { getUnknownSongTitle } = require("./helpers");
 
 let tray = null;
@@ -26,6 +26,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
   tray = new Tray("images/iconTemplate.png");
+  tray.setToolTip("Tray Music Player");
 
   tray.on("click", (event, bounds) => {
     const { x, y } = bounds;
@@ -41,6 +42,11 @@ app.whenReady().then(() => {
       });
       win.show();
     }
+  });
+
+  tray.on("right-click", () => {
+    const contextMenu = Menu.buildFromTemplate([{ role: "quit" }]);
+    tray.popUpContextMenu(contextMenu);
   });
 
   win.on("blur", () => {
