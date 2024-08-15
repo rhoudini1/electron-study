@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Musasic</title>
+    <link rel="stylesheet" href="css/photon.css" />
+    <style>
+      .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .toolbar-actions:before,
+      .toolbar-actions:after {
+        display: table;
+        content: none;
+      }
+      .volume-bar {
+        float: inline-start;
+        margin-top: 5px;
+        margin-left: 5px;
+        accent-color: gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="window">
+      <header class="toolbar toolbar-header">
+        <div class="toolbar-actions flex-container">
+          <div class="btn-group">
+            <button class="btn btn-default" onclick="playPrevious()">
+              <span class="icon icon-to-start"></span>
+            </button>
+            <button class="btn btn-default active" id="play-button">
+              <span class="icon icon-play"></span>
+            </button>
+            <button class="btn btn-default" onclick="playNext()">
+              <span class="icon icon-to-end"></span>
+            </button>
+          </div>
+
+          <span> <span id="time-left">00:00</span> | <span id="total-time">00:00</span> </span>
+
+          <button class="btn btn-default btn-large" id="add-btn"><span class="icon icon-plus icon-text"></span>Add</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+        <input type="file" style="display: none" multiple onchange="musicSelected()" />
+        <audio src=""></audio>
+        <div class="padding-more">
+          <h4 id="current-song"></h4>
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Artist</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+
+              <tbody id="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <footer class="toolbar toolbar-footer" style="padding-bottom: 7px">
+        <div class="volume-bar form-actions">
+          <span id="icon-sound" class="icon icon-sound" style="font-size: medium"></span>
+          <input type="range" min="0" max="1" step="0.01" oninput="changeVolume(this)" />
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn btn-default pull-right" onclick="clearPlaylist()">Clear Playlist</button>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
