@@ -1,9 +1,10 @@
 const path = require("node:path");
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require("electron");
+const { app, BrowserWindow, ipcMain, Tray, Menu, Notification } = require("electron");
 const { getUnknownSongTitle } = require("./helpers");
 
 let tray = null;
 let win = null;
+let nofication;
 
 const createWindow = () => {
   if (process.platform === "darwin") {
@@ -75,4 +76,15 @@ ipcMain.handle("parseFiles", async (event, filePathsJson) => {
     });
   }
   return JSON.stringify(metadata);
+});
+
+ipcMain.on("notification", (event, songTitle) => {
+  if (Notification.isSupported()) {
+    notification = new Notification({
+      title: "Now playing",
+      body: songTitle,
+      silent: true,
+    });
+    notification.show();
+  }
 });

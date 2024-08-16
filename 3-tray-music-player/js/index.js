@@ -27,6 +27,7 @@ function playSong(index) {
   playIcon.addClass("icon-pause");
   isPlayingSong = true;
   currentSongHeading.textContent = "Playing now: " + allSongs[index].title;
+  window.electronApi.sendNotification(allSongs[index].title);
 }
 
 function playOrPauseSong() {
