@@ -28,13 +28,15 @@ For instance, for the first project (text editor), I have added the location whe
 
 In the second app, the music player, I have improved some aspects of the application. I have distributed the items in the sidebar equally using CSS flexbox. Because of that, some Photon classes were breaking, especially the `toolbar-actions:before` and `toolbar-actions:after`, so I had to override them as well. I also had to solve a lot of bugs (many of them created by me, because I am modifying doing lots of things my way).
 
+The third app was easier to follow, because it was basically the same application developed in the previous step, but now in the system tray. However, I still decided that some improvements could be made. For instance, in the way it was presented in the tutorial, the volume button had a bug that made it non-draggable, and the window was moving when the user tried to change the volume. The solution was quite simple, just add `-webkit-app-region: no-drag;` to the input, but it is an important detail. Other minor fixes like these were done as well.
+
 ## Status of the project
 
 Project is currently ongoing. So far I have studied and completed:
 
  - [x] Text Editor
  - [x] Music Player
- - [ ] System tray Music Player (using last project)
+ - [x] System tray Music Player (using last project)
  - [ ] Top Headlines News Reader
  - [ ] Radio Streaming App
  - [ ] Packaging and distribution
