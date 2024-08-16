@@ -75,6 +75,7 @@ ipcMain.handle("parseFiles", async (event, filePathsJson) => {
       path: path.replace(/\\/g, "/"),
     });
   }
+  win.show();
   return JSON.stringify(metadata);
 });
 
