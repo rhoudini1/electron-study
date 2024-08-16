@@ -4,7 +4,7 @@ const { getUnknownSongTitle } = require("./helpers");
 
 let tray = null;
 let win = null;
-let nofication;
+let notification;
 
 const createWindow = () => {
   if (process.platform === "darwin") {
