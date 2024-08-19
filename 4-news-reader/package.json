@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^31.4.0"
+  },
+  "dependencies": {
+    "newsapi": "^2.4.0"
   }
 }
