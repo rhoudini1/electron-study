@@ -1,0 +1,14 @@
+{
+  "name": "electro-news",
+  "version": "1.0.0",
+  "description": "News reader for electron study",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^31.4.0"
+  }
+}
