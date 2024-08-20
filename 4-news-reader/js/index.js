@@ -27,6 +27,11 @@ function showNews(allNews, searchBarValue = "") {
   $("#news-list").html("");
   $("#news-list").append(searchBarHtml);
 
+  if (allNews.length === 0) {
+    $("#news-list").append(`<p style="margin-left: 15px; color: #9c9c9c;">No articles were found.</p>`);
+    return;
+  }
+
   allNews.forEach((news) => {
     const singleNews = `
       <li class="list-group-item">
