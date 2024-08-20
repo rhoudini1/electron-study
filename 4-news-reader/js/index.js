@@ -1,4 +1,13 @@
-getNews("politics").then((news) => showNews(news));
+const navItems = $(".nav-group-item");
+
+getNews("business").then((news) => showNews(news));
+
+navItems.on("click", (event) => {
+  const category = event.target.id;
+  navItems.removeClass("active");
+  $(event.target).addClass("active");
+  getNews(category).then((news) => showNews(news));
+});
 
 async function getNews(category) {
   const newsJson = await window.newsApi.getNews(category);
@@ -6,6 +15,15 @@ async function getNews(category) {
 }
 
 function showNews(allNews) {
+  const searchBarHtml = `
+    <li class="list-group-header">
+      <input class="form-control" type="text" value="" placeholder="Search for news" />
+    </li>
+  `;
+
+  $("#news-list").html("");
+  $("#news-list").append(searchBarHtml);
+
   allNews.forEach((news) => {
     const singleNews = `
       <li class="list-group-item">
