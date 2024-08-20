@@ -8,7 +8,6 @@ const getNews = async (category) => {
   const result = await newsapi.v2.topHeadlines({
     category,
     language: "en",
-    country: "us",
   });
   return result.status === "ok" ? result.articles : [];
 };
