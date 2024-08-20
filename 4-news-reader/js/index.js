@@ -1,23 +1,26 @@
 const navItems = $(".nav-group-item");
+let articles = null;
 
-getNews("business").then((news) => showNews(news));
+getNews("business");
 
 navItems.on("click", (event) => {
   const category = event.target.id;
   navItems.removeClass("active");
   $(event.target).addClass("active");
-  getNews(category).then((news) => showNews(news));
+  getNews(category);
 });
 
 async function getNews(category) {
   const newsJson = await window.newsApi.getNews(category);
-  return JSON.parse(newsJson);
+  const news = JSON.parse(newsJson);
+  articles = news;
+  showNews(news);
 }
 
-function showNews(allNews) {
+function showNews(allNews, searchBarValue = "") {
   const searchBarHtml = `
     <li class="list-group-header">
-      <input class="form-control" type="text" value="" placeholder="Search for news" />
+      <input class="form-control" type="text" value="${searchBarValue}" placeholder="Search for news" onchange="search(this)" />
     </li>
   `;
 
@@ -40,4 +43,13 @@ function showNews(allNews) {
     `;
     $("#news-list").append(singleNews);
   });
+}
+
+function search(input) {
+  const query = input.value;
+  if (query.length === 0) {
+    showNews(articles);
+  }
+  const filteredArticles = articles.filter((item) => item.title.toLowerCase().includes(query.toLowerCase()));
+  showNews(filteredArticles, query);
 }
