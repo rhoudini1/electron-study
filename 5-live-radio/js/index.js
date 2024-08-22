@@ -9,7 +9,7 @@ async function renderStations() {
   for (const station of stationsList) {
     const stationComponent = `
       <li class="list-group-item">
-        <img class="img-circle media-object pull-left" src="" width="32" height="32" />
+        <img class="img-circle media-object pull-left" src="${station.favicon}" width="32" height="32" />
         <div class="media-body">
           <strong>${station.name}</strong>
           <p>${station.country}</p>
