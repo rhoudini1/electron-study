@@ -12,6 +12,7 @@
     "electron": "^32.0.1"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "radio-browser-api": "^6.0.2"
   }
 }
