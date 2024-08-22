@@ -30,6 +30,12 @@ In the second app, the music player, I have improved some aspects of the applica
 
 The third app was easier to follow, because it was basically the same application developed in the previous step, but now in the system tray. However, I still decided that some improvements could be made. For instance, in the way it was presented in the tutorial, the volume button had a bug that made it non-draggable, and the window was moving when the user tried to change the volume. The solution was quite simple, just add `-webkit-app-region: no-drag;` to the input, but it is an important detail. Other minor fixes like these were done as well.
 
+The two least apps were easier for me in terms of Electron itself, but I had a good time dealing with HTML and frontend Javascript.
+
+I have used a different Radio API for the last project only to change something to add extra challenge.
+
+I will try to add more features in the future, if I have the time and energy to do so.
+
 ## Status of the project
 
 Project is currently ongoing. So far I have studied and completed:
@@ -37,6 +43,6 @@ Project is currently ongoing. So far I have studied and completed:
  - [x] Text Editor
  - [x] Music Player
  - [x] System tray Music Player (using last project)
- - [ ] Top Headlines News Reader
- - [ ] Radio Streaming App
+ - [x] Top Headlines News Reader
+ - [x] Radio Streaming App
  - [ ] Packaging and distribution
