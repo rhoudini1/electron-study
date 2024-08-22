@@ -12,7 +12,7 @@ async function renderStations() {
   const stationsList = await getStations();
   for (const station of stationsList) {
     const stationComponent = `
-      <li class="list-group-item" ondblclick="playStream('${station.urlResolved}')">
+      <li class="list-group-item" ondblclick="playStream('${station.urlResolved}', this)">
         <img class="img-circle media-object pull-left" src="${station.favicon}" width="32" height="32" />
         <div class="media-body">
           <strong>${station.name}</strong>
@@ -24,7 +24,9 @@ async function renderStations() {
   }
 }
 
-function playStream(url) {
+function playStream(url, liElement) {
+  $(".list-group-item").removeClass("active");
+  $(liElement).addClass("active");
   audioPlayer.src = url;
   audioPlayer.load();
   audioPlayer.play();
